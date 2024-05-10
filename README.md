@@ -1,9 +1,5 @@
 # Banco de Dados do Sistema de Gerenciamento de Manuais da Dell
 
-Este documento fornece uma descrição detalhada das tabelas e relações no banco de dados utilizado pelo sistema de gerenciamento de manuais da Dell. O esquema foi projetado para suportar o cadastro e a gestão de manuais utilizados para o treinamento dos funcionários, incluindo montadores e administradores.
-
-## Tabelas
-
 ### 1. `users`
 Tabela para armazenar informações dos usuários, que podem ser tanto administradores quanto montadores.
 
