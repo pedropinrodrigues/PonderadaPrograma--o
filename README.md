@@ -12,8 +12,9 @@ Tabela para armazenar informações dos usuários, que podem ser tanto administr
 - **cpf** (INTEGER): CPF do usuário (Número de Cadastro de Pessoas Físicas).
 - **email** (VARCHAR(50)): Endereço de email do usuário.
 - **senha** (VARCHAR(50)): Senha do usuário para acesso ao sistema.
-- **created_at** (TIMESTAMP): Data e hora da criação do registro.
-- **last_login** (TIMESTAMP): Data e hora do último acesso do usuário.
+
+    - **Relações:**
+  - Usuários podem ser membros (`membro`) ou administradores (`admin`).
 
 ### 2. `membro`
 Tabela para detalhar informações específicas dos montadores da fábrica.
@@ -23,6 +24,8 @@ Tabela para detalhar informações específicas dos montadores da fábrica.
 - **linha_de_producao** (VARCHAR(30)): Linha de produção onde o membro trabalha.
 - **funcao** (VARCHAR(30)): Função específica do membro na linha de produção.
 
+    - **Cardinalidade:** 1:N (um usuário pode ser muitos membros)
+
 ### 3. `admin`
 Tabela para detalhar informações específicas dos administradores.
 
@@ -31,6 +34,8 @@ Tabela para detalhar informações específicas dos administradores.
 - **linha_de_producao** (VARCHAR(30)): Linha de produção associada ao administrador.
 - **funcao** (VARCHAR(30)): Função específica do administrador.
 
+    - **Cardinalidade:** 1:N (um usuário pode ser muitos administradores)
+
 ### 4. `manuais`
 Tabela para armazenar dados dos manuais.
 
@@ -38,8 +43,8 @@ Tabela para armazenar dados dos manuais.
 - **titulo** (VARCHAR(50)): Título do manual.
 - **descricao** (VARCHAR(300)): Descrição breve do conteúdo do manual.
 - **id_admin** (INTEGER): Chave estrangeira que referencia o `id` na tabela `admin`.
-- **created_at** (TIMESTAMP): Data e hora da criação do manual.
-- **updated_at** (TIMESTAMP): Data e hora da última atualização do manual.
+
+    - **Cardinalidade:** 1:N (um administrador pode criar muitos manuais)
 
 ### 5. `arquivos`
 Tabela para gerenciar os arquivos contidos nos manuais.
@@ -50,6 +55,8 @@ Tabela para gerenciar os arquivos contidos nos manuais.
 - **path** (VARCHAR(50)): Caminho do arquivo no sistema de armazenamento.
 - **tipo** (VARCHAR(30)): Tipo do arquivo (pdf, jpg, mp4, etc.).
 
+    - **Cardinalidade:** 1:N (um manual pode conter vários arquivos)
+
 ### 6. `manuais_membro`
 Tabela intermediária entre manuais e membros para estabelecer quais manuais cada membro pode acessar.
 
@@ -57,8 +64,7 @@ Tabela intermediária entre manuais e membros para estabelecer quais manuais cad
 - **id_manuais** (INTEGER): Chave estrangeira que referencia o `id` na tabela `manuais`.
 - **id_membro** (INTEGER): Chave estrangeira que referencia o `id` na tabela `membro`.
 
-## Relações
+    - **Cardinalidade:** N:N (muitos manuais podem ser acessados por muitos membros)
 
-Cada tabela foi projetada para interagir de forma eficiente dentro do sistema, garantindo integridade dos dados e facilitando o acesso e gestão de informações relacionadas a manuais e seus usuários.
 
-Este esquema é vital para o correto funcionamento do sistema de treinamento da Dell, proporcionando uma organização eficaz e segura das informações necessárias para o desenvolvimento dos funcionários.
+Sempre que houver uma relação de N:N entre tabelas se faz necessário uma tabela intermediária para gerenciar esses dados.
